@@ -5,6 +5,14 @@ Built with: Next.js 14 · GPT-4o · Playwright · SQLite + Prisma
 
 Built by [Hammad Abid Hussain](https://www.linkedin.com/in/hammad-abid-hussain/) · hammadabidhussain@hotmail.com
 
+## Screenshots
+
+![Main screen](l1.png)
+*Main screen*
+
+![Generated post from article](l2.png)
+*AI-generated post from a fetched article*
+
 ---
 
 ## Quick Start
