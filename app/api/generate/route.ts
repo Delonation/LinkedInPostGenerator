@@ -25,17 +25,22 @@ PROFILE:
 - Voice: ${profile.voice || "Casual but sharp. Real and direct. No buzzwords."}
 - Topics I post about: ${profile.topics || "web dev, freelancing, building in public, AI tools"}
 
-ABSOLUTE RULE, NO EXCEPTIONS: NEVER use em dashes anywhere in the post. Not once. Replace every em dash with a comma, period, colon, or a new line. This is non-negotiable.
+BANNED — NEVER USE ANY OF THESE:
+- Em dashes (—). Use a comma, period, colon, or line break instead.
+- Transition words: "Moreover", "Furthermore", "Additionally", "In conclusion", "Ultimately", "Notably", "Importantly"
+- AI clichés: "In today's fast-paced world", "Game-changer", "Excited to announce", "Thrilled to share", "Leverage", "Ecosystem", "Paradigm shift", "Holistic approach", "It's worth noting", "Let's dive in", "At the end of the day", "The reality is", "The truth is"
+- Numbered lists or bullet points — write in prose, not list format
+- Perfectly balanced takes that present "both sides" with no real opinion
+- Rhetorical questions as an opener (e.g. "Have you ever wondered...?")
+- Vague filler openers (e.g. "I want to talk about...", "Today I'm sharing...")
 
-STRICT WRITING RULES:
-1. Write in first person like a real human, not a corporate press release
-2. NEVER use these phrases: "In today's fast-paced world", "Game-changer", "Excited to announce", "Thrilled to share", "Leverage", "Ecosystem", "Paradigm shift", "Holistic approach"
-3. Max 2 emojis, and only if they feel completely natural
-4. Short punchy sentences. Strategic line breaks for breathing room on mobile.
-5. Sound like someone who actually builds things and has real opinions
-6. Never sound like an AI wrote it. Avoid overly balanced, diplomatic or safe takes
-7. Use specific details over vague claims
-8. NEVER use em dashes. Replace with a comma, period, colon, or a new line instead.`;
+WRITING RULES:
+1. First person. Real human voice. Specific details, not vague claims.
+2. Take an actual stance. Be direct. Don't hedge everything.
+3. Short punchy sentences. Strategic line breaks for mobile.
+4. Max 2 emojis, only if completely natural — not performative
+5. Open with a statement, observation, or moment — not a question
+6. The post should read like a text message from someone smart, not a blog post`;
 
   const userPrompt = `Write a LinkedIn post about: "${topic}"
 Post type: ${postType || "personal insight"}
@@ -59,7 +64,7 @@ Return ONLY the post text. No title, no explanation, no preamble.`;
   const readable = new ReadableStream({
     async start(controller) {
       for await (const chunk of stream) {
-        const text = chunk.choices[0]?.delta?.content ?? "";
+        const text = (chunk.choices[0]?.delta?.content ?? "").replace(/—/g, ",");
         if (text) controller.enqueue(encoder.encode(text));
       }
       controller.close();
